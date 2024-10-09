@@ -1,66 +1,163 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Bill Payments API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
 
-## About Laravel
+This project is a RESTful API for managing bill payments, built using Laravel. It allows users to create, retrieve, update, and delete transactions and users.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- CRUD operations for transactions and users
+- Paginated responses for listing resources
+- Detailed error handling
+- Unit tests for API endpoints
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technologies Used
 
-## Learning Laravel
+- **Laravel**: PHP framework for web applications
+- **PHP**: Programming language
+- **MySQL**: Database management system
+- **Postman**: For testing API endpoints
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Getting Started
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Prerequisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Before you begin, ensure you have the following installed:
 
-## Laravel Sponsors
+- PHP (>= 8.0)
+- Composer
+- MySQL or another supported database
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Installation
 
-### Premium Partners
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/bill-payments-api.git
+   cd bill-payments-api
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. **Install dependencies**:
+   ```bash
+   composer install
+   ```
+
+3. **Set up your environment file**:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Generate the application key**:
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Configure your database**: 
+   Open the `.env` file and set your database credentials:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=your_database_name
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   ```
+
+6. **Run database migrations**:
+   ```bash
+   php artisan migrate
+   ```
+
+7. **(Optional) Seed the database**: 
+   You can seed your database with initial data using:
+   ```bash
+   php artisan db:seed
+   ```
+
+### Project Structure
+
+- **Controllers**: Contains the API logic for handling requests and responses.
+- **Models**: Represents the database entities.
+- **Resources**: Transforms models into JSON responses.
+- **Requests**: Handles validation of incoming requests.
+- **Traits**: Contains reusable methods (e.g., `ApiResponseTrait` for consistent API responses).
+- **Exceptions**: Custom exception handling.
+- **Routes**: API routes are defined in the `routes/api.php` file, providing endpoints for transactions and users.
+
+### API Endpoints
+
+#### Transactions
+
+- **GET /api/transactions**: Retrieve a list of transactions.
+- **POST /api/transactions**: Create a new transaction.
+- **GET /api/transactions/{id}**: Retrieve a specific transaction by ID.
+- **PUT /api/transactions/{id}**: Update a specific transaction by ID.
+- **DELETE /api/transactions/{id}**: Delete a specific transaction by ID.
+
+#### Users
+
+- **GET /api/users**: Retrieve a list of users.
+- **POST /api/users**: Create a new user.
+- **GET /api/users/{id}**: Retrieve a specific user by ID.
+- **PUT /api/users/{id}**: Update a specific user by ID.
+- **DELETE /api/users/{id}**: Delete a specific user by ID.
+
+## Techniques and Approaches Used
+
+1. **Route Model Binding**: Utilizes Laravel’s route model binding to automatically resolve the model instances from the route parameters, providing cleaner code and reducing boilerplate.
+
+2. **API Response Trait**: A reusable trait (`ApiResponseTrait`) that provides a consistent format for API responses. This trait encapsulates the logic for success and error responses, making the codebase more DRY (Don't Repeat Yourself).
+
+3. **Error Handling**: Custom exception handling to return meaningful error messages and status codes to the API consumers. The `Handler` class captures `ModelNotFoundException` to return a 404 response when a resource is not found.
+
+4. **Unit Testing**: Laravel's built-in testing tools are utilized to ensure the functionality of the API endpoints. This helps maintain code quality and prevents regressions.
+
+5. **Validation Requests**: Form request validation to ensure that incoming data is validated before reaching the controller logic.
+
+## Running Unit Tests
+
+To run the unit tests for the project, follow these steps:
+
+1. Ensure your database is migrated and seeded (if needed).
+2. Run the following command:
+   ```bash
+   php artisan test
+   ```
+
+3. This command will execute all tests and provide output indicating which tests passed and which failed. You can also run specific test files by providing the path, e.g.:
+   ```bash
+   php artisan test tests/Unit/TransactionControllerTest.php
+   ```
+
+### Test Results
+
+The tests have been executed successfully, and here are the results:
+
+```
+   PASS  Tests\Unit\TransactionControllerTest
+  ✓ it creates a transaction successfully                                                                                                        0.19s  
+  ✓ it fails to create a transaction due to validation errors                                                                                    0.01s  
+  ✓ it fetches a transaction successfully                                                                                                        0.01s  
+  ✓ it updates a transaction successfully                                                                                                        0.01s  
+  ✓ it deletes a transaction successfully                                                                                                        0.01s  
+  ✓ it returns not found for non existing transaction                                                                                            0.01s  
+
+   PASS  Tests\Unit\UserControllerTest
+  ✓ it creates a user successfully                                                                                                               0.02s  
+  ✓ it fails to create a user due to validation errors                                                                                           0.01s  
+  ✓ it fetches a user successfully                                                                                                               0.01s  
+  ✓ it updates a user successfully                                                                                                               0.01s  
+  ✓ it deletes a user successfully                                                                                                               0.03s  
+  ✓ it returns not found for non existing user                                                                                                   0.01s  
+
+  Tests:    12 passed (53 assertions)
+  Duration: 0.33s
+```
+
+### Test Structure
+
+- **Unit Tests**: Tests for individual components and methods.
+- **Feature Tests**: Tests for testing larger features that involve multiple components.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+If you would like to contribute to this project, please fork the repository and submit a pull request with your changes.
