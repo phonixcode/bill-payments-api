@@ -101,6 +101,9 @@ Before you begin, ensure you have the following installed:
 - **PUT /api/users/{id}**: Update a specific user by ID.
 - **DELETE /api/users/{id}**: Delete a specific user by ID.
 
+
+check the complete documentation here [Documentation](https://documenter.getpostman.com/view/36429449/2sAXxQdrg8).
+
 ## Techniques and Approaches Used
 
 1. **Route Model Binding**: Utilizes Laravel’s route model binding to automatically resolve the model instances from the route parameters, providing cleaner code and reducing boilerplate.
